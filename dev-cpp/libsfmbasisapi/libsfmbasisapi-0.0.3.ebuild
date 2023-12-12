@@ -7,18 +7,29 @@ DESCRIPTION="Libsfmbasisapi: Unofficial library for communicating with SFM Basis
 HOMEPAGE="https://github.com/leakingmemory/libsfmbasisapi"
 SRC_URI="https://github.com/leakingmemory/libsfmbasisapi/archive/refs/tags/${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="AGPL"
+LICENSE="AGPL-3"
 SLOT="0"
 KEYWORDS="amd64"
 IUSE=""
 
-DEPEND=""
+DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1"
 RDEPEND="${DEPEND}"
 
-src_configure() {
-    local mycmakeargs=(
-        "-DCMAKE_BUILD_TYPE=Release"
-    )
+src_prepare(){
+	sed -i -e 's/LIBRARY DESTINATION lib/LIBRARY DESTINATION lib64/' CMakeLists.txt || die sed failed
+	cmake_src_prepare
+}
 
-    cmake_src_configure
+src_configure() {
+	CMAKE_BUILD_TYPE=Release
+	cmake_src_configure
+}
+
+
+src_compile(){
+	cmake_src_compile
+}
+
+src_install(){
+	cmake_src_install
 }
