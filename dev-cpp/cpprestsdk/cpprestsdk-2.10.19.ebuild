@@ -11,7 +11,7 @@ HOMEPAGE="https://github.com/microsoft/cpprestsdk"
 SRC_URI="https://github.com/microsoft/cpprestsdk/archive/refs/tags/v${PV}.tar.gz"
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64"
 
 RDEPEND=">=dev-libs/openssl-1.1.1q
 		>=dev-libs/boost-1.80.0-r1
