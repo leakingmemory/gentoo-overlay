@@ -24,12 +24,3 @@ src_configure() {
 	CMAKE_BUILD_TYPE=Release
 	cmake_src_configure
 }
-
-
-src_compile(){
-	cmake_src_compile
-}
-
-src_install(){
-	cmake_src_install
-}
