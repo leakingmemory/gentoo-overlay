@@ -1,0 +1,121 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -14,7 +14,6 @@ endif (APPLE)
+ 
+ add_subdirectory(libs/asio)
+ add_subdirectory(libs/enet-1.3.14)
+-add_subdirectory(libs/Irrlicht)
+ add_subdirectory(libs/serial)
+ 
+ include_directories("libs/enet-1.3.14/include")
+@@ -119,10 +118,13 @@ else (APPLE)
+         bc-asio
+         enet
+         bc-serial
+-        bc-irrlicht
+         Threads::Threads
+         sndfile
+         portaudio
+         asound
++        -lIrrlicht
+     )
++    target_include_directories(bridgecommand-bc PRIVATE /usr/include/irrlicht)
++
++    install(TARGETS bridgecommand-bc DESTINATION bin)
+ endif (APPLE)
+--- a/controller/CMakeLists.txt
++++ b/controller/CMakeLists.txt
+@@ -19,7 +19,10 @@ find_package(Threads REQUIRED)
+ target_link_libraries(bridgecommand-mc
+     bc-asio
+     enet
+-    bc-irrlicht
++    -lIrrlicht
+     bc-aisparser
+     Threads::Threads
+ )
++target_include_directories(bridgecommand-mc PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand-mc DESTINATION bin)
+--- a/controller/libs/aisparser/CMakeLists.txt
++++ b/controller/libs/aisparser/CMakeLists.txt
+@@ -11,3 +11,5 @@ add_library(bc-aisparser
+ target_include_directories(bc-aisparser PUBLIC
+     "${CMAKE_CURRENT_SOURCE_DIR}/c/src/"
+ )
++
++install(TARGETS bc-aisparser DESTINATION lib64)
+--- a/editor/CMakeLists.txt
++++ b/editor/CMakeLists.txt
+@@ -12,5 +12,9 @@ add_executable(bridgecommand-ed
+ 
+ 
+ target_link_libraries(bridgecommand-ed
+-    bc-irrlicht
++    -lIrrlicht
+ )
++
++target_include_directories(bridgecommand-ed PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand-ed DESTINATION bin)
+--- a/iniEditor/CMakeLists.txt
++++ b/iniEditor/CMakeLists.txt
+@@ -7,5 +7,9 @@ add_executable(bridgecommand-ini
+ )
+ 
+ target_link_libraries(bridgecommand-ini
+-    bc-irrlicht
++    -lIrrlicht
+ )
++
++target_include_directories(bridgecommand-ini PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand-ini DESTINATION bin)
+--- a/launcher/CMakeLists.txt
++++ b/launcher/CMakeLists.txt
+@@ -7,5 +7,9 @@ add_executable(bridgecommand
+ )
+ 
+ target_link_libraries(bridgecommand
+-    bc-irrlicht
++    -lIrrlicht
+ )
++
++target_include_directories(bridgecommand PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand DESTINATION bin)
+--- a/libs/serial/CMakeLists.txt
++++ b/libs/serial/CMakeLists.txt
+@@ -11,3 +11,5 @@ add_library(bc-serial
+ target_include_directories(bc-serial PUBLIC
+     "${CMAKE_CURRENT_SOURCE_DIR}"
+ )
++
++install(TARGETS bc-serial DESTINATION lib64)
+--- a/multiplayerHub/CMakeLists.txt
++++ b/multiplayerHub/CMakeLists.txt
+@@ -13,5 +13,9 @@ add_executable(bridgecommand-mh
+ 
+ target_link_libraries(bridgecommand-mh
+     enet
+-    bc-irrlicht
++    -lIrrlicht
+ )
++
++target_include_directories(bridgecommand-mh PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand-mh DESTINATION bin)
+--- a/repeater/CMakeLists.txt
++++ b/repeater/CMakeLists.txt
+@@ -19,6 +19,10 @@ find_package(Threads REQUIRED)
+ target_link_libraries(bridgecommand-rp
+     bc-asio
+     enet
+-    bc-irrlicht
++    -lIrrlicht
+     Threads::Threads
+ )
++
++target_include_directories(bridgecommand-rp PRIVATE /usr/include/irrlicht)
++
++install(TARGETS bridgecommand-rp DESTINATION bin)

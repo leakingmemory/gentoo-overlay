@@ -1,0 +1,270 @@
+--- a/Angles.cpp
++++ b/Angles.cpp
+@@ -17,6 +17,7 @@
+ #include "Angles.hpp"
+ #include <algorithm>
+ #include <iostream>
++#include <cstdint>
+ 
+ //From OpenCV via http://stackoverflow.com/a/20723890
+ int Angles::localisinf(double x)
+--- a/BCTerrainSceneNode.cpp
++++ b/BCTerrainSceneNode.cpp
+@@ -26,6 +26,8 @@
+ #include "BCDynamicMeshBuffer.h"
+ #include <algorithm>
+ 
++#define snprintf_irr snprintf
++
+ namespace irr
+ {
+ namespace scene
+--- a/BCTerrainSceneNode.h
++++ b/BCTerrainSceneNode.h
+@@ -16,6 +16,10 @@
+ 
+ #include <vector>
+ 
++#ifndef _IRR_OVERRIDE_
++#define _IRR_OVERRIDE_
++#endif
++
+ namespace irr
+ {
+ namespace io
+--- a/BCTerrainTriangleSelector.cpp
++++ b/BCTerrainTriangleSelector.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "BCTerrainTriangleSelector.h"
+ #include "BCTerrainSceneNode.h"
++#include "libs/Irrlicht/irrlicht-svn/include/ITriangleSelector.h"
+ //#include "os.h"
+ 
+ namespace irr
+--- a/BCTerrainTriangleSelector.h
++++ b/BCTerrainTriangleSelector.h
+@@ -12,12 +12,53 @@
+ #include "ITriangleSelector.h"
+ #include "irrArray.h"
+ 
++#ifndef _IRR_OVERRIDE_
++#define _IRR_OVERRIDE_
++#endif
++
+ namespace irr
+ {
+ namespace scene
+ {
+ 
+-class ITerrainSceneNode;
++    struct SCollisionTriangleRange
++    {
++        SCollisionTriangleRange()
++                : RangeStart(0), RangeSize(0)
++                , Selector(0), SceneNode(0)
++                , /*MeshBuffer(0),*/ MaterialIndex(0)
++        {}
++
++        //! Check if this triangle index inside the range
++        /**
++        \param triangleIndex Index to an element inside the array of triangles returned by ITriangleSelector::getTriangles
++        */
++        bool isIndexInRange(irr::u32 triangleIndex) const
++        {
++            return triangleIndex >= RangeStart && triangleIndex < RangeStart+RangeSize;
++        }
++
++        //! First index in the returned triangle array for which this struct is valid
++        irr::u32 RangeStart;
++
++        //! Number of elements in the returned triangle array for which this struct is valid (starting with RangeStart)
++        irr::u32 RangeSize;
++
++        //! Real selector which contained those triangles (useful when working with MetaTriangleSelector)
++        ITriangleSelector* Selector;
++
++        //! SceneNode from which the triangles are from
++        ISceneNode* SceneNode;
++
++        //! Meshbuffer from which the triangles are from
++        //! Is 0 when the ITriangleSelector doesn't support meshbuffer selection
++        //const IMeshBuffer* MeshBuffer;
++
++        //! Index of selected material in the SceneNode. Usually only valid when MeshBuffer is also set, otherwise always 0
++        irr::u32 MaterialIndex;
++    };
++
++    class ITerrainSceneNode;
+ 
+ //! Triangle Selector for the TerrainSceneNode
+ /** The code for the TerrainTriangleSelector is based on the GeoMipMapSelector
+--- a/BCVertexBuffer.h
++++ b/BCVertexBuffer.h
+@@ -66,7 +66,10 @@ namespace scene
+ 
+ 			virtual video::S3DVertex* pointer() _IRR_OVERRIDE_ {return Vertices.pointer();}
+ 
+-			virtual video::E_VERTEX_TYPE getType() const _IRR_OVERRIDE_ {return T::getType();}
++			virtual video::E_VERTEX_TYPE getType() const _IRR_OVERRIDE_ {
++                T obj{};
++                return obj.getType();
++            }
+ 		};
+ 
+ 	public:
+--- a/FFTWave.cpp
++++ b/FFTWave.cpp
+@@ -28,6 +28,7 @@ SOFTWARE.
+ #include <fstream>
+ #include <cstdlib> //For rand()
+ #include <iostream>
++#include <cstdint>
+ 
+ #ifndef M_PI
+ #define M_PI 3.14159265358979323846
+--- a/MovingWater.cpp
++++ b/MovingWater.cpp
+@@ -24,6 +24,7 @@
+ 
+ #include <iostream>
+ //#include <cmath>
++#include <cstdint>
+ 
+ namespace irr
+ {
+@@ -238,6 +239,7 @@ void MovingWaterSceneNode::OnSetConstants(video::IMaterialRendererServices* serv
+ 
+ 			driver = services->getVideoDriver();
+ 			//Looking for our constants IDs...
++#if 0
+ 			matViewInverse = services->getVertexShaderConstantID("matViewInverse");
+ 			matWorldReflectionViewProj = services->getVertexShaderConstantID("WorldReflectionViewProj");
+ 			idLightLevel = services->getVertexShaderConstantID("lightLevel");
+@@ -253,6 +255,7 @@ void MovingWaterSceneNode::OnSetConstants(video::IMaterialRendererServices* serv
+ 				matWorldViewProjection = services->getVertexShaderConstantID("matWorldViewProjection");
+ 				matWorld = services->getVertexShaderConstantID("matWorld");
+ 			}
++#endif
+ 		}
+ 
+ 		//Setting up our constants...
+@@ -260,31 +263,31 @@ void MovingWaterSceneNode::OnSetConstants(video::IMaterialRendererServices* serv
+ 
+ 		mat = driver->getTransform(irr::video::ETS_VIEW);
+ 		mat.makeInverse();
+-		services->setVertexShaderConstant(matViewInverse, mat.pointer(), 16);
++		services->setVertexShaderConstant("matViewInverse", mat.pointer(), 16);
+ 
+ 		irr::core::matrix4 worldReflectionViewProj = driver->getTransform(video::ETS_PROJECTION);
+ 		worldReflectionViewProj *= _camera->getViewMatrix();;
+ 		worldReflectionViewProj *= driver->getTransform(video::ETS_WORLD);
+-		services->setVertexShaderConstant(matWorldReflectionViewProj, worldReflectionViewProj.pointer(), 16);
++		services->setVertexShaderConstant("WorldReflectionViewProj", worldReflectionViewProj.pointer(), 16);
+ 
+ 		if (IsOpenGL)
+ 		{
+ 			int sampler = 0;
+-			services->setPixelShaderConstant(baseMap, &sampler, 1);
++			services->setPixelShaderConstant("baseMap", &sampler, 1);
+ 			sampler = 1;
+-			services->setPixelShaderConstant(reflectionMap, &sampler, 1);
+-			services->setPixelShaderConstant(idLightLevel, &lightLevel, 1);
+-			services->setPixelShaderConstant(idSeaState, &seaState, 1);
++			services->setPixelShaderConstant("reflectionMap", &sampler, 1);
++			services->setPixelShaderConstant("lightLevel", &lightLevel, 1);
++			services->setPixelShaderConstant("seaState", &seaState, 1);
+ 		}
+ 		else
+ 		{
+ 			mat = driver->getTransform(irr::video::ETS_PROJECTION);
+ 			mat *= driver->getTransform(irr::video::ETS_VIEW);
+ 			mat *= driver->getTransform(irr::video::ETS_WORLD);
+-			services->setVertexShaderConstant(matWorldViewProjection, mat.pointer(), 16);
++			services->setVertexShaderConstant("matWorldViewProjection", mat.pointer(), 16);
+ 
+ 			mat = driver->getTransform(irr::video::ETS_WORLD);
+-			services->setVertexShaderConstant(matWorld, mat.pointer(), 16);
++			services->setVertexShaderConstant("matWorld", mat.pointer(), 16);
+ 		}
+ 		//End from Mel's cubemap demo
+ 	}
+@@ -370,7 +373,7 @@ void MovingWaterSceneNode::OnAnimate(irr::u32 timeMs)
+ 		}
+ 
+ 		//reflection
+-		driver->setRenderTarget(_reflectionMap, irr::video::ECBF_COLOR|irr::video::ECBF_DEPTH); //render to reflection
++		driver->setRenderTarget(_reflectionMap, irr::video::ECF_R32F); //render to reflection
+ 
+ 		//get current camera
+ 		scene::ICameraSceneNode* currentCamera = SceneManager->getActiveCamera();
+--- a/MovingWater.hpp
++++ b/MovingWater.hpp
+@@ -84,6 +84,7 @@ namespace scene
+ 	private:
+ 
+         //Shader related
++#if 0
+         int matWorldViewProjection;//Identifiers, much faster than string matching...
+         int matViewInverse;
+         int matWorldReflectionViewProj;
+@@ -92,6 +93,7 @@ namespace scene
+         int reflectionMap;
+         int idLightLevel;
+         int idSeaState;
++#endif
+         bool firstRun;
+         bool IsOpenGL;//Our constants set callback isn't limited to D3D9
+ 		irr::u32 disableShaders;
+--- a/ScenarioChoice.cpp
++++ b/ScenarioChoice.cpp
+@@ -107,7 +107,7 @@ void ScenarioChoice::chooseScenario(std::string& scenarioName, std::string& host
+         if (device->isWindowActive())
+         {
+             //Event receiver will set Scenario Selected, so we just loop here until that happens
+-            driver->beginScene(irr::video::ECBF_COLOR|irr::video::ECBF_DEPTH, irr::video::SColor(0,200,200,200));
++            driver->beginScene(irr::video::ECF_R32F, false, irr::video::SColor(0,200,200,200));
+             
+             //Set the 'description' text here
+             irr::s32 currentSelection = scenarioListBox->getSelected();
+--- a/main.cpp
++++ b/main.cpp
+@@ -525,11 +525,6 @@ int main(int argc, char ** argv)
+ #endif
+ 
+     //Use an extra SIrrlichtCreationParameters parameter, added to our version of the Irrlicht source, to request a borderless X11 window if requested
+-    #ifdef __linux__
+-    if (fakeFullScreen) {
+-	deviceParameters.X11borderless=true; //Has an effect on X11 only
+-    }
+-    #endif
+ 
+     //create device
+     deviceParameters.DriverType = irr::video::EDT_OPENGL;
+@@ -688,7 +683,7 @@ int main(int argc, char ** argv)
+     creditsText.append(getCredits());
+     irr::gui::IGUIStaticText* loadingMessage = device->getGUIEnvironment()->addStaticText(creditsText.c_str(), irr::core::rect<irr::s32>(0.05*su,0.05*sh,0.95*su,0.95*sh),true);
+     device->run();
+-    driver->beginScene(irr::video::ECBF_COLOR|irr::video::ECBF_DEPTH, irr::video::SColor(0,200,200,200));
++    driver->beginScene(irr::video::ECF_R32F, false, irr::video::SColor(0,200,200,200));
+     device->getGUIEnvironment()->drawAll();
+     driver->endScene();
+ 
+@@ -719,7 +714,7 @@ int main(int argc, char ** argv)
+         portMessage.append(irr::core::stringw(network->getPort()));
+         loadingMessage->setText(portMessage.c_str());
+         device->run();
+-        driver->beginScene(irr::video::ECBF_COLOR|irr::video::ECBF_DEPTH, irr::video::SColor(0,200,200,200));
++        driver->beginScene(irr::video::ECF_R32F, false, irr::video::SColor(0,200,200,200));
+         device->getGUIEnvironment()->drawAll();
+         driver->endScene();
+         //Get the data
+@@ -849,7 +844,7 @@ int main(int argc, char ** argv)
+ //        renderSetupProfile.tic();
+         }{ IPROF("Render setup");
+         driver->setViewPort(irr::core::rect<irr::s32>(0,0,graphicsWidth,graphicsHeight)); //Full screen before beginScene
+-        driver->beginScene(irr::video::ECBF_COLOR|irr::video::ECBF_DEPTH, irr::video::SColor(0,128,128,128));
++        driver->beginScene(irr::video::ECF_R32F, false, irr::video::SColor(0,128,128,128));
+ //        renderSetupProfile.toc();
+ 
+ //        renderRadarProfile.tic();

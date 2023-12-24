@@ -1,0 +1,32 @@
+--- a/GUIMain.cpp.old
++++ b/GUIMain.cpp
+@@ -973,8 +973,8 @@
+         irr::s32 selectedItem2 = arpaText2->getSelected();
+         irr::s32 selectedPosition = 0;
+         irr::s32 selectedPosition2 =0;
+-        if (arpaText->getVerticalScrollBar()) {selectedPosition=arpaText->getVerticalScrollBar()->getPos();}
+-        if (arpaText2->getVerticalScrollBar()) {selectedPosition2=arpaText2->getVerticalScrollBar()->getPos();}
++        //if (arpaText->getVerticalScrollBar()) {selectedPosition=arpaText->getVerticalScrollBar()->getPos();}
++        //if (arpaText2->getVerticalScrollBar()) {selectedPosition2=arpaText2->getVerticalScrollBar()->getPos();}
+         arpaText->clear();
+         arpaText2->clear();
+ 
+@@ -1072,12 +1072,12 @@
+         if (selectedItem2 > -1 && (irr::s32)arpaText2->getItemCount()>selectedItem2) {
+             arpaText2->setSelected(selectedItem2);
+         }
+-        if(arpaText->getVerticalScrollBar()) {
+-            arpaText->getVerticalScrollBar()->setPos(selectedPosition);
+-        }
+-        if(arpaText2->getVerticalScrollBar()) {
+-            arpaText2->getVerticalScrollBar()->setPos(selectedPosition2);
+-        }
++        //if(arpaText->getVerticalScrollBar()) {
++        //    arpaText->getVerticalScrollBar()->setPos(selectedPosition);
++        //}
++        //if(arpaText2->getVerticalScrollBar()) {
++        //    arpaText2->getVerticalScrollBar()->setPos(selectedPosition2);
++        //}
+ 
+ 
+         //add a collision warning
