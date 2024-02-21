@@ -9,7 +9,7 @@ SRC_URI="https://github.com/leakingmemory/themaster/archive/refs/tags/${PV}.tar.
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64"
 IUSE=""
 
 DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.1.1 >=x11-libs/wxGTK-3.0.4[webkit] >=dev-cpp/nlohmann_json-3.11.2 >=dev-cpp/libjjwtid-0.0.6"
