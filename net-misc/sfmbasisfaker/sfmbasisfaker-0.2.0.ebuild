@@ -12,7 +12,7 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.1.7 >=dev-cpp/libjjwtid-0.0.6"
+DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.1.20 >=dev-cpp/libjjwtid-0.0.6"
 RDEPEND="${DEPEND}"
 
 src_configure() {
