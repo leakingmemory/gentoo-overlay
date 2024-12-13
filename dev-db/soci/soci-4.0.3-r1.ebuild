@@ -10,7 +10,7 @@ SRC_URI="https://sourceforge.net/projects/soci/files/soci/soci-4.0.3/${P}.tar.gz
 LICENSE="Boost-1.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="oracle"
+IUSE="odbc sqlite oracle postgres mysql"
 
 CMAKE_SKIP_TESTS=(
 	soci_odbc_test_mssql
@@ -25,9 +25,11 @@ CMAKE_SKIP_TESTS=(
 
 RDEPEND="
 	>=dev-libs/boost-1.85.0-r1
-	>=dev-db/unixODBC-2.3.12
-	>=dev-db/sqlite-3.46.1
-	oracle? ( >=dev-db/oracle-instantclient-21.13.0.0.0[sdk] )
+	odbc? ( dev-db/unixODBC )
+	sqlite? ( dev-db/sqlite )
+	oracle? ( dev-db/oracle-instantclient[sdk] )
+	postgres? ( dev-db/postgresql )
+	mysql? ( dev-db/mysql )
 "
 DEPEND="${RDEPEND}"
 
