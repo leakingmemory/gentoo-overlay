@@ -7,7 +7,7 @@ EGIT_REPO_URI="https://github.com/leakingmemory/libmedfest.git"
 
 LICENSE="GPL"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 RDEPEND=""
