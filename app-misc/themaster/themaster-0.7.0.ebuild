@@ -12,8 +12,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.2.0 >=x11-libs/wxGTK-3.0.4[webkit] >=dev-cpp/nlohmann_json-3.11.2 >=dev-cpp/libjjwtid-0.0.9 >=dev-cpp/libmedfest-1.3.4"
-RDEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.2.0 >=x11-libs/wxGTK-3.0.4[webkit] >=dev-cpp/libjjwtid-0.0.9 >=dev-cpp/libmedfest-1.3.4"
+DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 ~dev-cpp/libsfmbasisapi-0.2.0 >=x11-libs/wxGTK-3.0.4[webkit] >=dev-cpp/nlohmann_json-3.11.2 >=dev-cpp/libjjwtid-0.0.9 >=dev-cpp/libmedfest-1.3.4"
+RDEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 ~dev-cpp/libsfmbasisapi-0.2.0 >=x11-libs/wxGTK-3.0.4[webkit] >=dev-cpp/libjjwtid-0.0.9 >=dev-cpp/libmedfest-1.3.4"
 
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
