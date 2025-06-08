@@ -1,0 +1,11 @@
+--- a/systemd/nnscproxy.systemd
++++ b/systemd/nnscproxy.systemd
+@@ -5,7 +5,7 @@
+ 
+ [Service]
+ Type=simple
+-ExecStart=/usr/local/bin/nnscproxy -f
++ExecStart=/usr/bin/nnscproxy -f
+ Restart=always
+ RestartSec=5
+ User=nobody
