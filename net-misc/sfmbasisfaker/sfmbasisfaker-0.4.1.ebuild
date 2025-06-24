@@ -9,7 +9,7 @@ SRC_URI="https://github.com/leakingmemory/sfmbasisfaker/archive/refs/tags/${PV}.
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/libsfmbasisapi-0.3.0 >=dev-cpp/libjjwtid-0.0.9"
