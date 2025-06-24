@@ -9,7 +9,7 @@ EGIT_REPO_URI="git@github.com:leakingmemory/synthpat.git"
 
 LICENSE="AGPL-3"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=x11-libs/wxGTK-3.0.4 >=dev-db/soci-4.0.3[oracle] >=net-libs/gsoap-2.8.130-r1"
