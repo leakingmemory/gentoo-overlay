@@ -12,13 +12,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 IUSE=""
 
-DEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1 >=dev-cpp/nlohmann_json-3.11.2"
-RDEPEND=">=dev-cpp/cpprestsdk-2.10.18 >=dev-libs/openssl-1.1.1"
-
-src_prepare(){
-	sed -i -e 's/LIBRARY DESTINATION lib/LIBRARY DESTINATION lib64/' CMakeLists.txt || die sed failed
-	cmake_src_prepare
-}
+DEPEND=">=dev-libs/openssl-1.1.1 >=dev-cpp/nlohmann_json-3.11.2"
+RDEPEND=">=dev-libs/openssl-1.1.1"
 
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
