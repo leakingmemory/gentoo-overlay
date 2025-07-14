@@ -26,6 +26,7 @@ CRATES="
 	pkg-config-0.3.32
 	proc-macro2-1.0.95
 	quote-1.0.40
+	rust-lzo-0.6.2
 	shlex-1.3.0
 	syn-2.0.104
 	typenum-1.18.0
@@ -44,10 +45,9 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="lzo socks5 zlib"
+IUSE="socks5 zlib"
 
 RDEPEND="
-	lzo? ( dev-libs/lzo:2 )
 	socks5? ( net-proxy/dante )
 	dev-libs/openssl:0=
 	zlib? ( sys-libs/zlib )
@@ -81,7 +81,6 @@ src_prepare() {
 src_configure() {
 	econf \
 		$(use_enable zlib) \
-		$(use_enable lzo) \
 		$(use_enable socks5 socks) \
 		--enable-shaper
 
