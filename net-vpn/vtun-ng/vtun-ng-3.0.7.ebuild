@@ -34,11 +34,13 @@ CRATES="
 	version_check-0.9.5
 "
 
-inherit linux-info cargo git-r3 autotools
+inherit linux-info cargo autotools
 
 DESCRIPTION="Create tunnels over TCP/IP networks with shaping, encryption, and compression"
 EGIT_REPO_URI="git@github.com:leakingmemory/vtun-ng.git"
-SRC_URI="${CARGO_CRATE_URIS}"
+SRC_URI="${CARGO_CRATE_URIS}
+	https://github.com/leakingmemory/vtun-ng/releases/download/v${PV}/${P}.tar.gz
+	"
 HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 
 LICENSE="GPL-2"
@@ -63,7 +65,6 @@ DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
 CONFIG_CHECK="~TUN"
 
 src_unpack() {
-	git-r3_src_unpack
 	cargo_src_unpack
 
 	pushd "${S}/rust/linkfd" >/dev/null || die
