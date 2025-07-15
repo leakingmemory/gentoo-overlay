@@ -49,12 +49,11 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="socks5 zlib"
+IUSE="socks5"
 
 RDEPEND="
 	socks5? ( net-proxy/dante )
 	dev-libs/openssl:0=
-	zlib? ( sys-libs/zlib )
 	dev-libs/libbsd"
 DEPEND="${RDEPEND}"
 BDEPEND="
@@ -84,7 +83,6 @@ src_prepare() {
 
 src_configure() {
 	econf \
-		$(use_enable zlib) \
 		$(use_enable socks5 socks) \
 		--enable-shaper
 
