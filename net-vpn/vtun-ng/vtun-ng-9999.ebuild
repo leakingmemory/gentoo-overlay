@@ -4,6 +4,7 @@
 EAPI=8
 
 CRATES="
+	adler2-2.0.1
 	bitflags-2.9.1
 	block-padding-0.3.3
 	blowfish-0.9.1
@@ -11,14 +12,17 @@ CRATES="
 	cc-1.2.29
 	cfg-if-1.0.1
 	cipher-0.4.4
+	crc32fast-1.5.0
 	crypto-common-0.1.6
 	ecb-0.1.2
+	flate2-1.1.2
 	foreign-types-0.3.2
 	foreign-types-shared-0.1.1
 	generic-array-0.14.7
 	inout-0.1.4
 	libc-0.2.174
 	md5-0.8.0
+	miniz_oxide-0.8.9
 	once_cell-1.21.3
 	openssl-0.10.73
 	openssl-macros-0.1.1
