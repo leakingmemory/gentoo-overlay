@@ -4,6 +4,7 @@
 EAPI=8
 
 CRATES="
+	adler2-2.0.1
 	bitflags-2.9.1
 	block-padding-0.3.3
 	blowfish-0.9.1
@@ -11,14 +12,17 @@ CRATES="
 	cc-1.2.29
 	cfg-if-1.0.1
 	cipher-0.4.4
+	crc32fast-1.5.0
 	crypto-common-0.1.6
 	ecb-0.1.2
+	flate2-1.1.2
 	foreign-types-0.3.2
 	foreign-types-shared-0.1.1
 	generic-array-0.14.7
 	inout-0.1.4
 	libc-0.2.174
 	md5-0.8.0
+	miniz_oxide-0.8.9
 	once_cell-1.21.3
 	openssl-0.10.73
 	openssl-macros-0.1.1
@@ -47,12 +51,11 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="socks5 zlib"
+IUSE="socks5"
 
 RDEPEND="
 	socks5? ( net-proxy/dante )
 	dev-libs/openssl:0=
-	zlib? ( sys-libs/zlib )
 	dev-libs/libbsd"
 DEPEND="${RDEPEND}"
 BDEPEND="
@@ -81,9 +84,7 @@ src_prepare() {
 
 src_configure() {
 	econf \
-		$(use_enable zlib) \
-		$(use_enable socks5 socks) \
-		--enable-shaper
+		$(use_enable socks5 socks)
 
 	pushd rust/linkfd >/dev/null || die
 	cargo_src_configure --offline

@@ -83,8 +83,7 @@ src_prepare() {
 
 src_configure() {
 	econf \
-		$(use_enable socks5 socks) \
-		--enable-shaper
+		$(use_enable socks5 socks)
 
 	pushd rust/linkfd >/dev/null || die
 	cargo_src_configure --offline
