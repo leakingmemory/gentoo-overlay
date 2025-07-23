@@ -113,6 +113,8 @@ src_configure() {
 }
 
 src_compile() {
+	export VTUN_STAT_DIR=/var/log/vtunngd
+	export ENABLE_NAT_HACK=1
 	pushd rust/linkfd >/dev/null || die
 	cargo_src_compile
 	popd >/dev/null || die
