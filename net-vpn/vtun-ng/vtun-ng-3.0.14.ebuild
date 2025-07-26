@@ -15,6 +15,7 @@ CRATES="
 	crc32fast-1.5.0
 	crypto-common-0.1.6
 	deranged-0.4.0
+	dns-lookup-2.0.4
 	ecb-0.1.2
 	errno-0.3.13
 	flate2-1.1.2
@@ -41,6 +42,7 @@ CRATES="
 	shlex-1.3.0
 	signal-hook-0.3.18
 	signal-hook-registry-1.4.5
+	socket2-0.5.10
 	syn-2.0.104
 	time-0.3.41
 	time-core-0.1.4
@@ -49,15 +51,34 @@ CRATES="
 	unicode-ident-1.0.18
 	vcpkg-0.2.15
 	version_check-0.9.5
+	windows-sys-0.48.0
+	windows-sys-0.52.0
 	windows-sys-0.60.2
+	windows-targets-0.48.5
+	windows-targets-0.52.6
 	windows-targets-0.53.2
+	windows_aarch64_gnullvm-0.48.5
+	windows_aarch64_gnullvm-0.52.6
 	windows_aarch64_gnullvm-0.53.0
+	windows_aarch64_msvc-0.48.5
+	windows_aarch64_msvc-0.52.6
 	windows_aarch64_msvc-0.53.0
+	windows_i686_gnu-0.48.5
+	windows_i686_gnu-0.52.6
 	windows_i686_gnu-0.53.0
+	windows_i686_gnullvm-0.52.6
 	windows_i686_gnullvm-0.53.0
+	windows_i686_msvc-0.48.5
+	windows_i686_msvc-0.52.6
 	windows_i686_msvc-0.53.0
+	windows_x86_64_gnu-0.48.5
+	windows_x86_64_gnu-0.52.6
 	windows_x86_64_gnu-0.53.0
+	windows_x86_64_gnullvm-0.48.5
+	windows_x86_64_gnullvm-0.52.6
 	windows_x86_64_gnullvm-0.53.0
+	windows_x86_64_msvc-0.48.5
+	windows_x86_64_msvc-0.52.6
 	windows_x86_64_msvc-0.53.0
 "
 
@@ -115,6 +136,7 @@ src_configure() {
 
 src_compile() {
 	export VTUN_STAT_DIR=/var/log/vtunngd
+	export VTUN_LOCK_DIR=/var/lock/vtunngd
 	export ENABLE_NAT_HACK=1
 	pushd rust/linkfd >/dev/null || die
 	cargo_src_compile
