@@ -5,6 +5,7 @@ EAPI=8
 
 CRATES="
 	adler2-2.0.1
+	beef-0.5.2
 	bitflags-2.9.1
 	block-padding-0.3.3
 	blowfish-0.9.1
@@ -19,12 +20,17 @@ CRATES="
 	ecb-0.1.2
 	errno-0.3.13
 	flate2-1.1.2
+	fnv-1.0.7
 	foreign-types-0.3.2
 	foreign-types-shared-0.1.1
 	generic-array-0.14.7
 	inout-0.1.4
 	itoa-1.0.15
+	lazy_static-1.5.0
 	libc-0.2.174
+	logos-0.15.0
+	logos-codegen-0.15.0
+	logos-derive-0.15.0
 	md5-0.8.0
 	miniz_oxide-0.8.9
 	num-conv-0.1.0
@@ -36,7 +42,10 @@ CRATES="
 	powerfmt-0.2.0
 	proc-macro2-1.0.95
 	quote-1.0.40
+	regex-syntax-0.8.5
 	rust-lzo-0.6.2
+	rustc_version-0.4.1
+	semver-1.0.26
 	serde-1.0.219
 	serde_derive-1.0.219
 	shlex-1.3.0
@@ -99,10 +108,6 @@ RDEPEND="
 	dev-libs/openssl:0=
 	dev-libs/libbsd"
 DEPEND="${RDEPEND}"
-BDEPEND="
-	app-alternatives/lex
-	app-alternatives/yacc
-"
 CARGO_WORKSPACE_MEMBERS="rust/linkfd"
 
 DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
