@@ -5,6 +5,7 @@ EAPI=8
 
 CRATES="
 	adler2-2.0.1
+	beef-0.5.2
 	bitflags-2.9.1
 	block-padding-0.3.3
 	blowfish-0.9.1
@@ -15,15 +16,21 @@ CRATES="
 	crc32fast-1.5.0
 	crypto-common-0.1.6
 	deranged-0.4.0
+	dns-lookup-2.0.4
 	ecb-0.1.2
 	errno-0.3.13
 	flate2-1.1.2
+	fnv-1.0.7
 	foreign-types-0.3.2
 	foreign-types-shared-0.1.1
 	generic-array-0.14.7
 	inout-0.1.4
 	itoa-1.0.15
+	lazy_static-1.5.0
 	libc-0.2.174
+	logos-0.15.0
+	logos-codegen-0.15.0
+	logos-derive-0.15.0
 	md5-0.8.0
 	miniz_oxide-0.8.9
 	num-conv-0.1.0
@@ -35,12 +42,16 @@ CRATES="
 	powerfmt-0.2.0
 	proc-macro2-1.0.95
 	quote-1.0.40
+	regex-syntax-0.8.5
 	rust-lzo-0.6.2
+	rustc_version-0.4.1
+	semver-1.0.26
 	serde-1.0.219
 	serde_derive-1.0.219
 	shlex-1.3.0
 	signal-hook-0.3.18
 	signal-hook-registry-1.4.5
+	socket2-0.5.10
 	syn-2.0.104
 	time-0.3.41
 	time-core-0.1.4
@@ -49,15 +60,34 @@ CRATES="
 	unicode-ident-1.0.18
 	vcpkg-0.2.15
 	version_check-0.9.5
+	windows-sys-0.48.0
+	windows-sys-0.52.0
 	windows-sys-0.60.2
+	windows-targets-0.48.5
+	windows-targets-0.52.6
 	windows-targets-0.53.2
+	windows_aarch64_gnullvm-0.48.5
+	windows_aarch64_gnullvm-0.52.6
 	windows_aarch64_gnullvm-0.53.0
+	windows_aarch64_msvc-0.48.5
+	windows_aarch64_msvc-0.52.6
 	windows_aarch64_msvc-0.53.0
+	windows_i686_gnu-0.48.5
+	windows_i686_gnu-0.52.6
 	windows_i686_gnu-0.53.0
+	windows_i686_gnullvm-0.52.6
 	windows_i686_gnullvm-0.53.0
+	windows_i686_msvc-0.48.5
+	windows_i686_msvc-0.52.6
 	windows_i686_msvc-0.53.0
+	windows_x86_64_gnu-0.48.5
+	windows_x86_64_gnu-0.52.6
 	windows_x86_64_gnu-0.53.0
+	windows_x86_64_gnullvm-0.48.5
+	windows_x86_64_gnullvm-0.52.6
 	windows_x86_64_gnullvm-0.53.0
+	windows_x86_64_msvc-0.48.5
+	windows_x86_64_msvc-0.52.6
 	windows_x86_64_msvc-0.53.0
 "
 
@@ -80,10 +110,6 @@ RDEPEND="
 	dev-libs/openssl:0=
 	dev-libs/libbsd"
 DEPEND="${RDEPEND}"
-BDEPEND="
-	app-alternatives/lex
-	app-alternatives/yacc
-"
 CARGO_WORKSPACE_MEMBERS="rust/linkfd"
 
 DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
@@ -115,6 +141,7 @@ src_configure() {
 
 src_compile() {
 	export VTUN_STAT_DIR=/var/log/vtunngd
+	export VTUN_LOCK_DIR=/var/lock/vtunngd
 	export ENABLE_NAT_HACK=1
 	pushd rust/linkfd >/dev/null || die
 	cargo_src_compile
