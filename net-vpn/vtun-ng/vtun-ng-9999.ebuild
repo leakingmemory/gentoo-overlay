@@ -97,7 +97,7 @@ CRATES="
 	windows_x86_64_msvc-0.53.0
 "
 
-inherit linux-info cargo git-r3 autotools
+inherit cargo git-r3
 
 DESCRIPTION="Create tunnels over TCP/IP networks with shaping, encryption, and compression"
 EGIT_REPO_URI="git@github.com:leakingmemory/vtun-ng.git"
@@ -107,10 +107,8 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="socks5"
 
 RDEPEND="
-	socks5? ( net-proxy/dante )
 	dev-libs/openssl:0="
 DEPEND="${RDEPEND}"
 

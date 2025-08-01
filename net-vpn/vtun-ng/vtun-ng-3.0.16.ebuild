@@ -5,6 +5,7 @@ EAPI=8
 
 CRATES="
 	adler2-2.0.1
+	beef-0.5.2
 	bitflags-2.9.1
 	block-padding-0.3.3
 	blowfish-0.9.1
@@ -19,12 +20,18 @@ CRATES="
 	ecb-0.1.2
 	errno-0.3.13
 	flate2-1.1.2
+	fnv-1.0.7
 	foreign-types-0.3.2
 	foreign-types-shared-0.1.1
 	generic-array-0.14.7
+	getopts-0.2.23
 	inout-0.1.4
 	itoa-1.0.15
+	lazy_static-1.5.0
 	libc-0.2.174
+	logos-0.15.0
+	logos-codegen-0.15.0
+	logos-derive-0.15.0
 	md5-0.8.0
 	miniz_oxide-0.8.9
 	num-conv-0.1.0
@@ -35,8 +42,12 @@ CRATES="
 	pkg-config-0.3.32
 	powerfmt-0.2.0
 	proc-macro2-1.0.95
+	proctitle-0.1.1
 	quote-1.0.40
+	regex-syntax-0.8.5
 	rust-lzo-0.6.2
+	rustc_version-0.4.1
+	semver-1.0.26
 	serde-1.0.219
 	serde_derive-1.0.219
 	shlex-1.3.0
@@ -49,8 +60,12 @@ CRATES="
 	time-macros-0.2.22
 	typenum-1.18.0
 	unicode-ident-1.0.18
+	unicode-width-0.2.1
 	vcpkg-0.2.15
 	version_check-0.9.5
+	winapi-0.3.9
+	winapi-i686-pc-windows-gnu-0.4.0
+	winapi-x86_64-pc-windows-gnu-0.4.0
 	windows-sys-0.48.0
 	windows-sys-0.52.0
 	windows-sys-0.60.2
@@ -82,10 +97,9 @@ CRATES="
 	windows_x86_64_msvc-0.53.0
 "
 
-inherit linux-info cargo autotools
+inherit cargo
 
 DESCRIPTION="Create tunnels over TCP/IP networks with shaping, encryption, and compression"
-EGIT_REPO_URI="git@github.com:leakingmemory/vtun-ng.git"
 SRC_URI="${CARGO_CRATE_URIS}
 	https://github.com/leakingmemory/vtun-ng/releases/download/v${PV}/${P}.tar.gz
 	"
@@ -94,18 +108,10 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="socks5"
 
 RDEPEND="
-	socks5? ( net-proxy/dante )
-	dev-libs/openssl:0=
-	dev-libs/libbsd"
+	dev-libs/openssl:0="
 DEPEND="${RDEPEND}"
-BDEPEND="
-	app-alternatives/lex
-	app-alternatives/yacc
-"
-CARGO_WORKSPACE_MEMBERS="rust/linkfd"
 
 DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
 CONFIG_CHECK="~TUN"
@@ -113,24 +119,8 @@ CONFIG_CHECK="~TUN"
 src_unpack() {
 	cargo_src_unpack
 
-	pushd "${S}/rust/linkfd" >/dev/null || die
+	pushd "${S}" >/dev/null || die
 	cargo_gen_config
-	popd >/dev/null || die
-}
-
-src_prepare() {
-	default
-	eautoreconf
-	sed -i -e '/^LDFLAGS/s|=|+=|g' Makefile.in || die
-	sed -i 's:$(BIN_DIR)/strip $(DESTDIR)$(SBIN_DIR)/vtund::' Makefile.in || die
-}
-
-src_configure() {
-	econf \
-		$(use_enable socks5 socks)
-
-	pushd rust/linkfd >/dev/null || die
-	cargo_src_configure --offline
 	popd >/dev/null || die
 }
 
@@ -138,19 +128,18 @@ src_compile() {
 	export VTUN_STAT_DIR=/var/log/vtunngd
 	export VTUN_LOCK_DIR=/var/lock/vtunngd
 	export ENABLE_NAT_HACK=1
-	pushd rust/linkfd >/dev/null || die
+	export VTUN_CONFIG_FILE=/etc/vtunngd.conf
+	export VTUN_PID_FILE=/var/run/vtunngd.pid
 	cargo_src_compile
-	popd >/dev/null || die
-
-	default
 }
 
 src_install() {
-	default
+	export INSTALL_PREFIX="${D}"
+	export DESTDIR=/
+	./install.sh
 	newinitd "${FILESDIR}"/vtunng.rc vtunng
 	insinto /etc
 	doins "${FILESDIR}"/vtunngd-start.conf
-	rm -r "${ED}"/var || die
 }
 
 src_test() { :; }
