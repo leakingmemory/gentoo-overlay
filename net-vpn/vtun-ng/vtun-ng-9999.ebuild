@@ -8,6 +8,7 @@ CRATES="
 	aes@0.8.4
 	beef@0.5.2
 	bitflags@2.9.1
+	block-buffer@0.10.4
 	block-padding@0.3.3
 	blowfish@0.9.1
 	byteorder@1.5.0
@@ -19,6 +20,7 @@ CRATES="
 	crc32fast@1.5.0
 	crypto-common@0.1.6
 	deranged@0.4.0
+	digest@0.10.7
 	dns-lookup@2.0.4
 	ecb@0.1.2
 	errno@0.3.13
@@ -53,6 +55,7 @@ CRATES="
 	semver@1.0.26
 	serde@1.0.219
 	serde_derive@1.0.219
+	sha2@0.10.9
 	signal-hook@0.3.18
 	signal-hook-registry@1.4.5
 	socket2@0.5.10
@@ -150,4 +153,3 @@ src_install() {
 	systemd_newunit "${S}"/scripts/vtunngd-client.service.systemd vtunngd@.service
 }
 
-src_test() { :; }
