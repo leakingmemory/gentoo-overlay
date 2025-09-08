@@ -77,7 +77,7 @@ CRATES="
 	unicode-ident@1.0.18
 	unicode-width@0.2.1
 	universal-hash@0.5.1
-	users@0.11.0
+	uzers@0.12.1
 	version_check@0.9.5
 	wasi@0.11.1+wasi-snapshot-preview1
 	wasi@0.14.2+wasi-0.2.4
