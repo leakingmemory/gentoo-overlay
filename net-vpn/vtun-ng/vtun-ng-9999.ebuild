@@ -128,7 +128,7 @@ HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
-IUSE="systemd"
+IUSE="systemd +lzo +zlib"
 
 DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
 CONFIG_CHECK="~TUN"
@@ -140,6 +140,14 @@ src_unpack() {
 	pushd "${S}" >/dev/null || die
 	cargo_gen_config
 	popd >/dev/null || die
+}
+
+src_configure() {
+	local myfeatures=(
+		$(usev lzo)
+		$(usev zlib)
+	)
+	cargo_src_configure
 }
 
 src_compile() {
