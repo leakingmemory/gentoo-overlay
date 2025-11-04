@@ -9,16 +9,11 @@ SRC_URI="https://github.com/leakingmemory/libjjwtid/archive/refs/tags/${PV}.tar.
 
 LICENSE="LGPL-2.1"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE=""
 
 DEPEND=">=dev-libs/openssl-1.1.1 >=dev-cpp/nlohmann_json-3.11.2"
 RDEPEND=">=dev-libs/openssl-1.1.1"
-
-src_prepare(){
-	sed -i -e 's/LIBRARY DESTINATION lib/LIBRARY DESTINATION lib64/' CMakeLists.txt || die sed failed
-	cmake_src_prepare
-}
 
 src_configure() {
 	CMAKE_BUILD_TYPE=Release
