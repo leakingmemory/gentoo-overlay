@@ -6,7 +6,7 @@ EAPI=8
 inherit linux-info autotools git-r3 systemd
 
 DESCRIPTION="Create tunnels over TCP/IP networks with shaping, encryption, and compression"
-EGIT_REPO_URI="git@github.com:leakingmemory/vtun-embedded.git"
+EGIT_REPO_URI="https://github.com/leakingmemory/vtun-embedded.git"
 HOMEPAGE="https://github.com/leakingmemory/vtun-embedded"
 
 LICENSE="GPL-2"
