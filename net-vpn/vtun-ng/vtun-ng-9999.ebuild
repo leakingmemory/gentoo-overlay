@@ -8,6 +8,7 @@ CRATES="
 	aead@0.5.2
 	aes@0.8.4
 	aes-gcm@0.10.3
+	aes-gcm-siv@0.11.1
 	beef@0.5.2
 	bitflags@2.9.1
 	block-buffer@0.10.4
@@ -17,6 +18,8 @@ CRATES="
 	cbc@0.1.2
 	cfb-mode@0.8.2
 	cfg-if@1.0.1
+	chacha20@0.9.1
+	chacha20poly1305@0.10.1
 	cipher@0.4.4
 	cpufeatures@0.2.17
 	crc32fast@1.5.0
@@ -47,6 +50,7 @@ CRATES="
 	num-conv@0.1.0
 	ofb@0.6.1
 	opaque-debug@0.3.1
+	poly1305@0.8.0
 	polyval@0.6.2
 	powerfmt@0.2.0
 	ppv-lite86@0.2.21
@@ -116,12 +120,13 @@ CRATES="
 	wit-bindgen-rt@0.39.0
 	zerocopy@0.8.26
 	zerocopy-derive@0.8.26
+	zeroize@1.8.2
 "
 
 inherit cargo git-r3 systemd
 
 DESCRIPTION="Create tunnels over TCP/IP networks with shaping, encryption, and compression"
-EGIT_REPO_URI="git@github.com:leakingmemory/vtun-ng.git"
+EGIT_REPO_URI="https://github.com/leakingmemory/vtun-ng.git"
 SRC_URI="${CARGO_CRATE_URIS}"
 HOMEPAGE="https://github.com/leakingmemory/vtun-ng"
 
