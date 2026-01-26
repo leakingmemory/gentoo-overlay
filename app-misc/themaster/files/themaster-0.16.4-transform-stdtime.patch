@@ -1,0 +1,20 @@
+--- a/MerchData.cpp
++++ b/MerchData.cpp
+@@ -6,6 +6,7 @@
+ #include "Uuid.h"
+ #include <sfmbasisapi/nhnfhir/SfmBandaPrescription.h>
+ #include <functional>
++#include <algorithm>
+ 
+ void MerchData::SetDefaults() {
+     itemGroup = {"urn:oid:2.16.578.1.12.4.1.1.7402", "A", "Annet", "Annet"};
+--- a/ClientAssertion.cpp
++++ b/ClientAssertion.cpp
+@@ -9,6 +9,7 @@
+ #include <jjwtid/Jwt.h>
+ #include <jjwtid/Rs256.h>
+ #include "Uuid.h"
++#include <ctime>
+ 
+ ClientAssertion::ClientAssertion(const std::string &audienceUrl, const std::string &clientId, const std::string &jwk,
+                                  const HelseidMultiTenantInfo &multiTenantInfo)
