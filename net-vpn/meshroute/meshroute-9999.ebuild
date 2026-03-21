@@ -142,10 +142,11 @@ HOMEPAGE="https://github.com/leakingmemory/meshroute"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="systemd"
 
 DOCS=()
 CONFIG_CHECK="~TUN"
+RUST_MIN_VER="1.85.0"
 
 src_unpack() {
 	git-r3_src_unpack
@@ -160,5 +161,6 @@ src_install() {
 	export INSTALL_PREFIX="${D}"
 	export DESTDIR=/
 	./install.sh
+	systemd_newunit "${S}"/scripts/meshroute.service.systemd meshroute@.service
 }
 
