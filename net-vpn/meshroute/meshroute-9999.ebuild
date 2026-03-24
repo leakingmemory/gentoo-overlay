@@ -4,6 +4,7 @@
 EAPI=8
 
 CRATES="
+adler2@2.0.1
 aead@0.5.2
 ahash@0.8.12
 android_system_properties@0.1.5
@@ -18,11 +19,12 @@ cc@1.2.32
 cfg-if@1.0.4
 chacha20@0.9.1
 chacha20poly1305@0.10.1
-chrono@0.4.42
+chrono@0.4.44
 cipher@0.4.4
 const-oid@0.9.6
 core-foundation-sys@0.8.7
 cpufeatures@0.2.17
+crc32fast@1.5.0
 crypto-common@0.1.7
 darling@0.21.3
 darling_core@0.21.3
@@ -32,6 +34,7 @@ deranged@0.5.5
 digest@0.10.7
 dyn-clone@1.0.20
 equivalent@1.0.2
+flate2@1.1.9
 fnv@1.0.7
 funty@2.0.0
 generic-array@0.14.7
@@ -50,10 +53,11 @@ inout@0.1.4
 itoa@1.0.15
 js-sys@0.3.83
 lazy_static@1.5.0
-libc@0.2.177
+libc@0.2.183
 libm@0.2.15
 log@0.4.28
 memchr@2.7.5
+miniz_oxide@0.8.9
 num-bigint-dig@0.8.6
 num-conv@0.1.0
 num-integer@0.1.46
@@ -79,7 +83,7 @@ rand_core@0.6.4
 rand_core@0.9.3
 ref-cast@1.0.25
 ref-cast-impl@1.0.25
-rsa@0.9.9
+rsa@0.9.10
 rustversion@1.0.22
 ryu@1.0.20
 schemars@0.9.0
@@ -94,6 +98,7 @@ serde_with_macros@3.16.1
 sha2@0.10.9
 shlex@1.3.0
 signature@2.2.0
+simd-adler32@0.3.8
 simdutf8@0.1.5
 smallvec@1.15.1
 spin@0.9.8
