@@ -59,7 +59,7 @@ log@0.4.28
 memchr@2.7.5
 miniz_oxide@0.8.9
 num-bigint-dig@0.8.6
-num-conv@0.1.0
+num-conv@0.2.0
 num-integer@0.1.46
 num-iter@0.1.45
 num-traits@0.2.19
@@ -109,9 +109,9 @@ syn@2.0.111
 tap@1.0.1
 thiserror@2.0.17
 thiserror-impl@2.0.17
-time@0.3.44
-time-core@0.1.6
-time-macros@0.2.24
+time@0.3.47
+time-core@0.1.8
+time-macros@0.2.27
 typenum@1.19.0
 unicode-ident@1.0.22
 unicode-width@0.2.2
@@ -151,7 +151,7 @@ IUSE="systemd"
 
 DOCS=()
 CONFIG_CHECK="~TUN"
-RUST_MIN_VER="1.85.0"
+RUST_MIN_VER="1.88.0"
 
 src_unpack() {
 	git-r3_src_unpack
