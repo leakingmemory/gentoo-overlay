@@ -455,7 +455,7 @@ zvariant_derive@5.12.0
 zvariant_utils@3.4.0
 "
 
-inherit cargo git-r3 systemd desktop
+inherit cargo git-r3 desktop
 
 DESCRIPTION="Housing planner"
 EGIT_REPO_URI="https://github.com/leakingmemory/housingplanner.git"

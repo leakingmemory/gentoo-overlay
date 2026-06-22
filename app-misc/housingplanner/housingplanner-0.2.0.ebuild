@@ -455,7 +455,7 @@ zvariant_derive@5.12.0
 zvariant_utils@3.4.0
 "
 
-inherit cargo
+inherit cargo desktop
 
 DESCRIPTION="Housing planner"
 SRC_URI="	${CARGO_CRATE_URIS}
@@ -480,5 +480,7 @@ src_unpack() {
 
 src_install() {
 	cargo_src_install
+	newicon "${S}/assets/icon-512.png" "${PN}.png"
+	domenu "${S}/assets/housingplanner.desktop"
 }
 
