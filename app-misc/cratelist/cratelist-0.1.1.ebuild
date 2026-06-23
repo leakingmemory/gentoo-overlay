@@ -49,11 +49,12 @@ winnow@1.0.0
 zmij@1.0.21
 "
 
-inherit cargo git-r3
+inherit cargo
 
 DESCRIPTION="List dependencies from Cargo.lock for various packaging"
 EGIT_REPO_URI="https://github.com/leakingmemory/cratelist.git"
-SRC_URI="${CARGO_CRATE_URIS}"
+SRC_URI="	${CARGO_CRATE_URIS}
+			https://github.com/leakingmemory/cratelist/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 HOMEPAGE="https://github.com/leakingmemory/cratelist"
 
 LICENSE="MIT"
@@ -66,7 +67,6 @@ CONFIG_CHECK="~TUN"
 RUST_MIN_VER="1.85.0"
 
 src_unpack() {
-	git-r3_src_unpack
 	cargo_src_unpack
 
 	pushd "${S}" >/dev/null || die
