@@ -24,7 +24,7 @@ CRATES="
 	cpufeatures@0.2.17
 	crc32fast@1.5.0
 	crypto-common@0.1.6
-	ctr-0.9.2
+	ctr@0.9.2
 	deranged@0.5.5
 	digest@0.10.7
 	dns-lookup@2.0.4
@@ -58,7 +58,7 @@ CRATES="
 	proctitle@0.1.1
 	quote@1.0.40
 	r-efi@5.3.0
-	rand@0.9.2
+	rand@0.9.3
 	rand_chacha@0.9.0
 	rand_core@0.6.4
 	rand_core@0.9.3
@@ -134,6 +134,7 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~ppc ~sparc ~x86"
 IUSE="systemd +lzo +zlib"
+RUST_MIN_VER="1.88.0"
 
 DOCS=( ChangeLog Credits FAQ README README.Setup README.Shaper TODO )
 CONFIG_CHECK="~TUN"
