@@ -11,9 +11,9 @@ anstyle-parse@1.0.0
 anstyle-query@1.1.5
 anstyle-wincon@3.0.11
 cfg-if@1.0.4
-clap@4.6.0
-clap_builder@4.6.0
-clap_derive@4.6.0
+clap@4.6.3
+clap_builder@4.6.2
+clap_derive@4.6.3
 clap_lex@1.1.0
 colorchoice@1.0.5
 crc32fast@1.5.0
@@ -29,18 +29,19 @@ miniz_oxide@0.8.9
 once_cell_polyfill@1.70.2
 proc-macro2@1.0.106
 quote@1.0.45
-serde@1.0.228
-serde_core@1.0.228
-serde_derive@1.0.228
-serde_json@1.0.149
-serde_spanned@1.0.4
+serde@1.0.229
+serde_core@1.0.229
+serde_derive@1.0.229
+serde_json@1.0.151
+serde_spanned@1.1.1
 simd-adler32@0.3.8
 strsim@0.11.1
 syn@2.0.117
-toml@1.0.7+spec-1.1.0
-toml_datetime@1.0.1+spec-1.1.0
-toml_parser@1.0.10+spec-1.1.0
-toml_writer@1.0.7+spec-1.1.0
+syn@3.0.1
+toml@1.1.2+spec-1.1.0
+toml_datetime@1.1.1+spec-1.1.0
+toml_parser@1.1.2+spec-1.1.0
+toml_writer@1.1.1+spec-1.1.0
 unicode-ident@1.0.24
 utf8parse@0.2.2
 windows-link@0.2.1
@@ -49,7 +50,7 @@ winnow@1.0.0
 zmij@1.0.21
 "
 
-inherit cargo systemd
+inherit cargo
 
 DESCRIPTION="List dependencies from Cargo.lock for various packaging"
 EGIT_REPO_URI="https://github.com/leakingmemory/cratelist.git"
